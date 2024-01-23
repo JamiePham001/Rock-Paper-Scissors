@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const getComputerChoice = () => {
+            const choices = ['rock', 'paper', 'scissors'];
+            const random = Math.floor(Math.random() * 3);
+            const result = choices[random]
+            return result
+        }
+
+        const getPlayerChoice = () => {
+            const userInput = prompt('type rock, paper or scissors');
+            if (userInput.toLowerCase() === 'rock' || userInput.toLowerCase() === 'paper' || userInput.toLowerCase() === 'scissors') {
+                return userInput.toLowerCase()
+            }
+            else {
+                console.log('Spelling is strict');
+            }
+        }
+
+        const findWinner = (player, cpu) => {
+            let playScore = 0;
+            let cpuScore = 0;
+
+            if (player === 'rock') {
+                if (cpu === 'scissors') {
+                    console.log('you picked rock');
+                    console.log('cpu picked scissors');
+                    console.log('you win!');
+                    return 1
+                }
+                else if (cpu === player) {
+                    console.log('you picked rock');
+                    console.log('cpu picked rock');
+                    console.log('you tied');
+                }
+                else {
+                    console.log('you picked rock');
+                    console.log('cpu picked paper');
+                    console.log('you lose!');
+                    return 2
+                }
+            }
+
+            else if (player === 'paper') {
+                if (cpu == 'rock') {
+                    console.log('you picked paper');
+                    console.log('cpu picked rock');
+                    console.log('you win!');
+                    return 1
+                }
+                else if (cpu === player) {
+                    console.log('you tied');
+                }
+                else {
+                    console.log('you picked paper');
+                    console.log('cpu picked scissors');
+                    console.log('you lose!');
+                    return 2
+                }
+            }
+
+            else if (player === 'scissors') {
+                if (cpu === 'paper') {
+                    console.log('you picked scissors');
+                    console.log('cpu picked paper');
+                    console.log('you win!');
+                    return 1
+                }
+                else if (cpu === player) {
+                    console.log('you tied');
+                }
+                else {
+                    console.log('you picked scissors');
+                    console.log('cpu picked rock');
+                    console.log('you lose!');
+                    return 2
+                }
+            }
+        }
+
+        const game = () => {
+            console.log('Welcome to Paper Scissors Rock');
+
+            let playerScore = 0;
+            let computerScore = 0;
+
+            while (playerScore < 5 && computerScore < 5) {
+                const playerChoice = getPlayerChoice();
+                const computerChoice = getComputerChoice();
+
+                let winner = findWinner(playerChoice, computerChoice)
+                // console.log('look at this:',winner)
+                if (winner === 1) {
+                    playerScore += 1;
+                }
+                else if (winner === 2) {
+                    computerScore += 1;
+                }
+                else{
+                    console.log('you tied')
+                }
+
+                console.log('player: ',playerScore)
+                console.log('cpu: ', computerScore)
+            }
+
+            if (playerScore == 5) {
+                console.log('player wins!')
+            }
+            else {
+                console.log('cpu wins!')
+            }
+            playerScore = 0;
+            compterScore = 0;
+        }
+
+        game();
+
+    </script>
+    <!-- CPU function that randomly generates a choice -->
+    <!-- create rock, paper, scissors button -->
+    <!-- on either button press CPU randomly chooses R, P or S -->
+    <!-- 'play again' button will appear after result -->
+    <!-- you win or lose will appear -->
+</body>
+</html>
