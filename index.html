@@ -9,18 +9,22 @@
 <body>
     <div class="container">
         <div class='title'>Rock Paper Scissors</div>
+        <div class="round-winner"></div>
         <div class="play-area">
             <div class="player">
+                <div class="player-score">0</div>
                 <div class="player-icon"></div>
                 <div class="player-selection-icon"></div>
-                <div class="player-choice">player RPS choices</div>
+                <div class="player-choice"></div>
             </div>
             <div class="versus">vs</div>
             <div class="computer">
+                <div class="computer-score">0</div>
                 <div class="computer-icon"></div>
                 <div class="cpu-selection-icon"></div>
             </div>
         </div>
+        <div class="final-winner"></div>
     </div>
     
     <!-- will display a 3 choice selection for the player, opponent will have a question icon playholder until player selects their choice -->
@@ -34,112 +38,93 @@
             return result
         }
 
-        const getPlayerChoice = () => {
-            const userInput = prompt('type rock, paper or scissors');
-            if (userInput.toLowerCase() === 'rock' || userInput.toLowerCase() === 'paper' || userInput.toLowerCase() === 'scissors') {
-                return userInput.toLowerCase()
-            }
-            else {
-                console.log('Spelling is strict');
-            }
-        }
+        // const getPlayerChoice = () => {
+        //     const userInput = prompt('type rock, paper or scissors');
+        //     if (userInput.toLowerCase() === 'rock' || userInput.toLowerCase() === 'paper' || userInput.toLowerCase() === 'scissors') {
+        //         return userInput.toLowerCase()
+        //     }
+        //     else {
+        //         console.log('Spelling is strict');
+        //     }
+        // }
 
-        const findWinner = (player, cpu) => {
-            let playScore = 0;
-            let cpuScore = 0;
+        const findWinner = (player) => {
+            const cpu = getComputerChoice();
+            playerSelectionImage.setAttribute('src', `images/${player}.jpg`);
+            cpuSelectionImage.setAttribute('src', `images/${cpu}.jpg`)
 
             if (player === 'rock') {
                 if (cpu === 'scissors') {
-                    console.log('you picked rock');
-                    console.log('cpu picked scissors');
-                    console.log('you win!');
                     return 1
                 }
                 else if (cpu === player) {
-                    console.log('you picked rock');
-                    console.log('cpu picked rock');
-                    console.log('you tied');
+                    return 0
                 }
                 else {
-                    console.log('you picked rock');
-                    console.log('cpu picked paper');
-                    console.log('you lose!');
                     return 2
                 }
             }
 
             else if (player === 'paper') {
                 if (cpu == 'rock') {
-                    console.log('you picked paper');
-                    console.log('cpu picked rock');
-                    console.log('you win!');
                     return 1
                 }
                 else if (cpu === player) {
-                    console.log('you tied');
+                    return 0
                 }
                 else {
-                    console.log('you picked paper');
-                    console.log('cpu picked scissors');
-                    console.log('you lose!');
                     return 2
                 }
             }
 
             else if (player === 'scissors') {
                 if (cpu === 'paper') {
-                    console.log('you picked scissors');
-                    console.log('cpu picked paper');
-                    console.log('you win!');
                     return 1
                 }
                 else if (cpu === player) {
-                    console.log('you tied');
+                    return 0
                 }
                 else {
-                    console.log('you picked scissors');
-                    console.log('cpu picked rock');
-                    console.log('you lose!');
                     return 2
                 }
             }
         }
 
-        const game = () => {
-            console.log('Welcome to Paper Scissors Rock');
+        // const game = () => {
+        //     console.log('Welcome to Paper Scissors Rock');
 
-            let playerScore = 0;
-            let computerScore = 0;
+        //     let playerScore = 0;
+        //     let computerScore = 0;
 
-            while (playerScore < 5 && computerScore < 5) {
-                const playerChoice = getPlayerChoice();
-                const computerChoice = getComputerChoice();
+        //     while (playerScore < 5 && computerScore < 5) {
+        //         const playerChoice = getPlayerChoice();
+        //         const computerChoice = getComputerChoice();
 
-                let winner = findWinner(playerChoice, computerChoice)
-                // console.log('look at this:',winner)
-                if (winner === 1) {
-                    playerScore += 1;
-                }
-                else if (winner === 2) {
-                    computerScore += 1;
-                }
-                else{
-                    console.log('you tied')
-                }
+        //         let winner = findWinner(playerChoice, computerChoice)
+        //         // console.log('look at this:',winner)
+        //         if (winner === 1) {
+        //             playerScore += 1;
+        //         }
+        //         else if (winner === 2) {
+        //             computerScore += 1;
+        //         }
+        //         else{
+        //             console.log('you tied')
+        //         }
 
-                console.log('player: ',playerScore)
-                console.log('cpu: ', computerScore)
-            }
+        //         console.log('player: ',playerScore)
+        //         console.log('cpu: ', computerScore)
+        //     }
 
-            if (playerScore == 5) {
-                console.log('player wins!')
-            }
-            else {
-                console.log('cpu wins!')
-            }
-            playerScore = 0;
-            compterScore = 0;
-        }
+        //     if (playerScore == 5) {
+        //         console.log('player wins!')
+        //     }
+        //     else {
+        //         console.log('cpu wins!')
+        //     }
+        //     playerScore = 0;
+        //     compterScore = 0;
+        // }
 
         // game();
 
@@ -153,8 +138,106 @@
         playerSelectionImage.setAttribute("height", "150px");
         playerSelectionImage.setAttribute("width", "150px");
 
+        // best way to interchangebly change src images is using '$images/playerChoice.png' (use back ticks)
+
         document.querySelector('.cpu-selection-icon').appendChild(cpuSelectionImage);
         document.querySelector('.player-selection-icon').appendChild(playerSelectionImage);
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            function resetBorders() {
+                const buttons = document.querySelectorAll('.player-choice button');
+                buttons.forEach(button => {
+                    button.style.border = '2px solid black';
+                });
+            }
+
+            const playerRock = document.createElement('button');
+            playerRock.style.backgroundImage = "url('images/rock.jpg')";
+            playerRock.style.backgroundSize = 'cover'; 
+            playerRock.style.border = '2px solid black'; 
+            playerRock.style.width = '100px'; 
+            playerRock.style.height = '100px'; 
+            playerRock.style.cursor = 'pointer';
+
+            document.querySelector('.player-choice').appendChild(playerRock);
+
+            playerRock.addEventListener('click', (event) => {
+                resetBorders();
+                playerRock.style.border = '2px solid green';
+                const winner = findWinner('rock');
+                displayResult(winner);
+                // run the find winner function. modify function to allow a choice parameter
+            });
+
+            const playerPaper = document.createElement('button');
+            playerPaper.style.backgroundImage = "url('images/paper.jpg')";
+            playerPaper.style.backgroundSize = 'cover'; 
+            playerPaper.style.border = '2px solid black'; 
+            playerPaper.style.width = '100px'; 
+            playerPaper.style.height = '100px'; 
+            playerPaper.style.cursor = 'pointer';
+
+            document.querySelector('.player-choice').appendChild(playerPaper);
+
+            playerPaper.addEventListener('click', (event) => {
+                resetBorders();
+                playerPaper.style.border = '2px solid green';
+                const winner = findWinner('paper');
+                displayResult(winner);
+            });
+
+            const playerScissors = document.createElement('button');
+            playerScissors.style.backgroundImage = "url('images/scissors.jpg')";
+            playerScissors.style.backgroundSize = 'cover'; 
+            playerScissors.style.border = '2px solid black'; 
+            playerScissors.style.width = '100px'; 
+            playerScissors.style.height = '100px'; 
+            playerScissors.style.cursor = 'pointer';
+
+            document.querySelector('.player-choice').appendChild(playerScissors);
+
+            playerScissors.addEventListener('click', (event) => {
+                resetBorders();
+                playerScissors.style.border = '2px solid green';
+                const winner = findWinner('scissors');
+                displayResult(winner);
+            });
+
+
+
+            function displayResult(winner) {
+                let playerScore = document.querySelector('.player-score');
+                let computerScore = document.querySelector('.computer-score');
+                let roundWinner = document.querySelector('.round-winner');
+                const finalWinner = document.querySelector('.final-winner');
+
+                if (winner === 1) {
+                    playerScore.textContent = parseInt(playerScore.textContent || 0) + 1;
+                    roundWinner.textContent = 'YOU WIN!';
+                    roundWinner.style.color = 'green';
+                } else if (winner === 2) {
+                    computerScore.textContent = parseInt(computerScore.textContent || 0) + 1;
+                    roundWinner.textContent = 'YOU LOSE!';
+                    roundWinner.style.color = 'red';
+                }
+                else {
+                    roundWinner.textContent = 'TIE!';
+                    roundWinner.style.color = 'black';
+                }
+
+                if (parseInt(playerScore.textContent) >= 5) {
+                    finalWinner.textContent = 'YOU WON IN A FIRST TO FIVE!'
+                }
+                else if (parseInt(computerScore.textContent) >= 5) {
+                    finalWinner.textContent = 'YOU LOST IN A FIRST TO FIVE!'
+                }
+            }
+            
+        })
+
+
+        
 
     </script>
 </body>
