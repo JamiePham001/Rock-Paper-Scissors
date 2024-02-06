@@ -3,9 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <div class='title'>Rock Paper Scissors</div>
+        <div class="play-area">
+            <div class="player">
+                <div class="player-icon"></div>
+                <div class="player-selection-icon"></div>
+                <div class="player-choice">player RPS choices</div>
+            </div>
+            <div class="versus">vs</div>
+            <div class="computer">
+                <div class="computer-icon"></div>
+                <div class="cpu-selection-icon"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- will display a 3 choice selection for the player, opponent will have a question icon playholder until player selects their choice -->
+    <!--  -->
+
     <script>
         const getComputerChoice = () => {
             const choices = ['rock', 'paper', 'scissors'];
@@ -121,13 +141,21 @@
             compterScore = 0;
         }
 
-        game();
+        // game();
+
+        let cpuSelectionImage = document.createElement('img');
+        cpuSelectionImage.setAttribute('src', 'images/mystery.png')
+        cpuSelectionImage.setAttribute("height", "150px");
+        cpuSelectionImage.setAttribute("width", "150px");
+
+        let playerSelectionImage = document.createElement('img');
+        playerSelectionImage.setAttribute('src', 'images/mystery.png')
+        playerSelectionImage.setAttribute("height", "150px");
+        playerSelectionImage.setAttribute("width", "150px");
+
+        document.querySelector('.cpu-selection-icon').appendChild(cpuSelectionImage);
+        document.querySelector('.player-selection-icon').appendChild(playerSelectionImage);
 
     </script>
-    <!-- CPU function that randomly generates a choice -->
-    <!-- create rock, paper, scissors button -->
-    <!-- on either button press CPU randomly chooses R, P or S -->
-    <!-- 'play again' button will appear after result -->
-    <!-- you win or lose will appear -->
 </body>
 </html>

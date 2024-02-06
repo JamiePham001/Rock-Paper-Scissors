@@ -1,0 +1,47 @@
+.container {
+    width: 100vw;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: center;
+    border-color: red;
+}
+
+.title {
+    padding-top: 200px;
+}
+
+.player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.computer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.play-area {
+    display: flex;
+    gap: 100px;
+    align-items: center;
+}
+
+.player-icon {
+    width: 200px; 
+    height: 200px; 
+    background-image: url(images/player.jpg); 
+    background-size: cover; 
+}
+
+.computer-icon {
+    width: 200px; 
+    height: 200px; 
+    background-image: url(images/computer.jpg);
+    background-size: cover; 
+}
